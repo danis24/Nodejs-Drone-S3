@@ -1,0 +1,14 @@
+pipeline:
+    frontend:
+        image: node:9
+        commands:
+            - npm install npm -g
+            - npm install grunt-cli -g
+            - npm install
+            - grunt build
+            - npm run buildprod
+            - echo $AWS_CREDENTIALS > aws-credentials.json
+            - npm run s3
+        when:
+            branch: master
+        secrets: [aws_credentials]
